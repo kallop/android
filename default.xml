@@ -2,8 +2,7 @@
 <manifest>
 
   <remote  name="aosp"
-           fetch="https://android.googlesource.com"
-           review="android-review.googlesource.com"
+           fetch="git://codeaurora.org"
            revision="refs/tags/android-6.0.1_r22" />
 
   <remote  name="github"
