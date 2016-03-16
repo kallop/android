@@ -1,50 +1,111 @@
-CyanogenMod
+KallopMod
 ===========
 
-Submitting Patches
+Installing Repo
+----------------
+To install Repo: 
+
+1.Make sure you have a bin/ directory in your home directory and that it is included in your path:
+
+    $ mkdir ~/bin
+    $ PATH=~/bin:$PATH
+
+2.Download the Repo tool and ensure that it is executable:
+
+    $ curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+    $ chmod a+x ~/bin/repo
+
+For version 1.17, the SHA-1 checksum for repo is ddd79b6d5a7807e911b524cb223bc3544b661c28
+For version 1.19, the SHA-1 checksum for repo is 92cbad8c880f697b58ed83e348d06619f8098e6c
+For version 1.20, the SHA-1 checksum for repo is e197cb48ff4ddda4d11f23940d316e323b29671c
+For version 1.21, the SHA-1 checksum for repo is b8bd1804f432ecf1bab730949c82b93b0fc5fede
+For version 1.22, the SHA-1 checksum for repo is da0514e484f74648a890c0467d61ca415379f791
+
+Installing Repo
+----------------
+After installing Repo, set up your client to access the Android source repository: 
+
+1.Create an empty directory to hold your working files. If you're using MacOS, this has to be on a case-sensitive filesystem. Give it any name you like: 
+
+    $ mkdir WORKING_DIRECTORY
+    $ cd WORKING_DIRECTORY
+    
+2.Configure git with your real name and email address. To use the Gerrit code-review tool, you will need an email address that is connected with a [registered Google account](https://www.google.com/accounts). Make sure this is a live address at which you can receive messages. The name that you provide here will show up in attributions for your code submissions. 
+
+    $ git config --global user.name "Your Name"
+    $ git config --global user.email "you@example.com"
+    
+3.Run repo init to bring down the latest version of Repo with all its most recent bug fixes. You must specify a URL for the manifest, which specifies where the various repositories included in the Android source will be placed within your working directory. 
+
+    $ repo init -u https://github.com/kallop/android -b cm-13.0
+    
+A successful initialization will end with a message stating that Repo is initialized in your working directory. Your client directory should now contain a .repo directory where files such as the manifest will be kept. 
+
+Downloading the Android Source Tree
+------------------------------------
+
+To pull down the Android source tree to your working directory from the repositories as specified in the default manifest, run
+
+    $ repo sync
+
+Environment Building
+---------------------
+For Ubuntu >= 15.04 Run the following: {
+   
+   For Android open source code version >= 6.0.0 Run the following:
+
+    $ sudo apt-get update
+    $ sudo apt-get install openjdk-7-jdk
+    
+   For Android open source code version <= 5.0.0 Run the following:
+
+    $ sudo apt-get update
+    $ sudo apt-get install openjdk-6-jdk
+}
+
+
+Installing required packages (Ubuntu 15.04)
+--------------------------------------------
+You will need a 64-bit version of Ubuntu. Ubuntu 15.04 is recommended.
+
+   If （ open source code is based on CyanogenMod ） {
+
+    $ sudo apt-get install git-core gnupg flex bison gperf build-essential \
+    zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
+    lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
+    libgl1-mesa-dev libxml2-utils xsltproc unzip maven
+
+   } else {
+
+    $ sudo apt-get install git-core gnupg flex bison gperf build-essential \
+    zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
+    lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
+    libgl1-mesa-dev libxml2-utils xsltproc unzip
+
+   }
+
+Setting up ccache
 ------------------
-Patches are always welcome!  Please submit your patches via CyanogenMod Gerrit!
-You can do this by using these commands:
+You can optionally tell the build to use the ccache compilation tool. Ccache acts as a compiler cache that can be used to speed up rebuilds. This works very well if you use ‘make clean’ often, or if you frequently switch between different build products.
 
-    (From root android directory)
-    . build/envsetup.sh
-    (Go to repo you are patching, make your changes and commit)
-    cmgerrit <for(new)/changes(patch set)> <branch/change-id> 
+Put the following in your .bashrc (or equivalent):
 
-    repo start cm-13.0 .
-    (Make your changes and commit)
-    repo upload .
-Note: "." meaning current directory
-For more help on using this tool, use this command: repo help upload
+    export USE_CCACHE=1
 
-Make your changes and commit with a detailed message, starting with what you are working with (i.e. vision: Update Kernel)
-Commit your patches in a single commit. Squash multiple commit using this command: git rebase -i HEAD~<# of commits>
+By default the cache will be stored in ~/.ccache. If your home directory is on NFS or some other non-local filesystem, you will want to specify the directory in your .bashrc file as well:
 
-To view the status of your and others' patches, visit [CyanogenMod Code Review](http://review.cyanogenmod.org/)
+    export CCACHE_DIR=<path-to-your-cache-directory>
 
+The suggested cache size is 50-100GB. You will need to run the following command once you have downloaded the source code:
 
-Getting Started
----------------
+    $ prebuilts/misc/linux-x86/ccache/ccache -M 50G
 
-To get started with Android/CyanogenMod, you'll need to get
-familiar with [Git and Repo](http://source.android.com/source/using-repo.html).
+On Mac OS, you should replace linux-x86 with darwin-x86:
 
-To initialize your local repository using the CyanogenMod trees, use a command like this:
+    $ prebuilts/misc/darwin-x86/ccache/ccache -M 50G
 
-    repo init -u git://github.com/CyanogenMod/android.git -b cm-13.0
+When building Ice Cream Sandwich (4.0.x) or older, ccache is in a different location:
 
-Then to sync up:
+    $ prebuilt/linux-x86/ccache/ccache -M 50G
 
-    repo sync
-
-Please see the [CyanogenMod Wiki](http://wiki.cyanogenmod.org/) for building instructions.
-
-For more information on this Github Organization and how it is structured, 
-please [read the wiki article](http://wiki.cyanogenmod.org/w/Github_Organization)
-
-Buildbot
---------
-
-All supported devices are built nightly and periodically as changes are committed to ensure the source trees remain buildable.
-
-You can view the current build statuses at [CyanogenMod Jenkins](http://jenkins.cyanogenmod.org/)
+This setting is stored in the CCACHE_DIR and is persistent.
