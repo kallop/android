@@ -109,7 +109,7 @@
   <project path="external/powertop" name="CyanogenMod/android_external_powertop" />
   <project path="external/protobuf-c" name="CyanogenMod/android_external_protobuf-c" />
   <project path="external/rsync" name="CyanogenMod/android_external_rsync" />
-  <project path="external/sepolicy" name="CyanogenMod/android_external_sepolicy" groups="pdk" />
+  <project path="external/sepolicy" name="kallop/android_external_sepolicy" groups="pdk" />
   <project path="external/skia" name="CyanogenMod/android_external_skia" groups="pdk,qcom_msm8x26" />
   <project path="external/sonivox" name="CyanogenMod/android_external_sonivox" groups="pdk" />
   <project path="external/speex" name="CyanogenMod/android_external_speex" groups="pdk" />
@@ -218,7 +218,6 @@
   <project path="hardware/ti/wpan" name="CyanogenMod/android_hardware_ti_wpan" />
   <project path="libcore" name="CyanogenMod/android_libcore" groups="pdk" />
   <project path="libnativehelper" name="CyanogenMod/android_libnativehelper" groups="pdk" />
-  <project path="packages/apps/AudioFX" name="CyanogenMod/android_packages_apps_AudioFX" />
   <project path="packages/apps/BasicSmsReceiver" name="CyanogenMod/android_packages_apps_BasicSmsReceiver" groups="pdk-cw-fs,pdk-fs" />
   <project path="packages/apps/Bluetooth" name="CyanogenMod/android_packages_apps_Bluetooth" groups="pdk-cw-fs,pdk-fs" />
   <project path="packages/apps/BluetoothExt" name="CyanogenMod/android_packages_apps_BluetoothExt" />
@@ -267,6 +266,7 @@
   <project path="packages/apps/Trebuchet" name="kallop/android_packages_apps_Trebuchet" revision="cm-13.0" />
   <project path="packages/apps/TvSettings" name="CyanogenMod/android_packages_apps_TvSettings" groups="generic_fs" />
   <project path="packages/apps/UnifiedEmail" name="CyanogenMod/android_packages_apps_UnifiedEmail" groups="pdk-fs" />
+  <project path="packages/apps/V4a" name="kallop/android_packages_apps_V4a" />
   <project path="packages/experimental" name="CyanogenMod/android_packages_experimental" />
   <project path="packages/inputmethods/LatinIME" name="CyanogenMod/android_packages_inputmethods_LatinIME" groups="pdk-fs" />
   <project path="packages/providers/BookmarkProvider" name="CyanogenMod/android_packages_providers_BookmarkProvider" groups="pdk-fs" />
